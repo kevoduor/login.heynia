@@ -10,9 +10,13 @@ import {
   MessageSquare,
   CreditCard,
   FileText,
-  Wrench
+  Wrench,
+  LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import heyniaIcon from "@/assets/heynia-icon.png";
 
 const navigationItems = [
   { icon: LayoutDashboard, label: "Dashboard", active: true },
@@ -47,14 +51,13 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ className }: SidebarProps) => {
+  const { user, signOut } = useAuth();
   return (
     <div className={cn("flex flex-col h-full bg-sidebar border-r border-sidebar-border", className)}>
       {/* Header */}
       <div className="p-6 border-b border-sidebar-border">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">H</span>
-          </div>
+          <img src={heyniaIcon} alt="HeyNia" className="w-8 h-8 rounded-lg" />
           <span className="font-bold text-lg text-sidebar-foreground">HeyNia</span>
         </div>
       </div>
@@ -198,14 +201,28 @@ export const Sidebar = ({ className }: SidebarProps) => {
 
       {/* User Profile */}
       <div className="p-4 border-t border-sidebar-border">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-            <span className="text-primary-foreground text-sm font-medium">DK</span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              <span className="text-primary-foreground text-sm font-medium">
+                {user?.user_metadata?.full_name?.charAt(0) || user?.email?.charAt(0)?.toUpperCase() || 'U'}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-sidebar-foreground truncate">
+                {user?.user_metadata?.full_name || 'User'}
+              </p>
+              <p className="text-xs text-sidebar-foreground/60 truncate">{user?.email}</p>
+            </div>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-sidebar-foreground truncate">Dr. Khan</p>
-            <p className="text-xs text-sidebar-foreground/60 truncate">admin@heynia.com</p>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={signOut}
+            className="h-8 w-8 text-sidebar-foreground hover:bg-sidebar-accent"
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>
