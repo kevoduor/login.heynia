@@ -68,6 +68,11 @@ All colors MUST be HSL.
     --health-high: 25 95% 60%;
     --health-medium: 45 95% 60%;
     --health-low: 140 70% 50%;
+
+    /* Glassy effects */
+    --glass-primary: 270 95% 65% / 0.8;
+    --glass-bg: 270 95% 65% / 0.1;
+    --glass-border: 270 95% 65% / 0.2;
   }
 
   .dark {

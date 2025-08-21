@@ -6,9 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Camera, User } from 'lucide-react';
 import heyniaIcon from '@/assets/heynia-icon.png';
+import onboarding1 from '@/assets/onboarding-1.png';
+import onboarding2 from '@/assets/onboarding-2.png';
 
 const Onboarding = () => {
   const [step, setStep] = useState(1);
@@ -133,136 +136,186 @@ const Onboarding = () => {
     }
   };
 
+  const getBackgroundImage = () => {
+    switch (step) {
+      case 2:
+        return onboarding1;
+      case 3:
+        return onboarding2;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-violet-600 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl mx-auto">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <img src={heyniaIcon} alt="HeyNia" className="w-16 h-16 rounded-xl" />
-          </div>
-          <CardTitle className="text-2xl">Complete Your Profile</CardTitle>
-          <div className="flex justify-center mt-4">
-            <div className="flex space-x-2">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className={`w-3 h-3 rounded-full ${
-                    i <= step ? 'bg-green-600' : 'bg-muted'
-                  }`}
-                />
-              ))}
+    <div className="min-h-screen flex">
+      {/* Left Panel - Dynamic Background */}
+      {step > 1 && (
+        <div 
+          className="hidden lg:flex lg:w-1/2 relative overflow-hidden"
+          style={{
+            backgroundImage: `url(${getBackgroundImage()})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
+          <div className="relative z-10 flex items-start justify-start p-8">
+            <div className="flex items-center space-x-3">
+              <img src={heyniaIcon} alt="HeyNia" className="w-8 h-8" />
+              <span className="text-2xl font-bold text-white drop-shadow-lg">HeyNia</span>
             </div>
           </div>
-        </CardHeader>
+        </div>
+      )}
+      
+      {/* Right Panel - Form */}
+      <div className={`${step > 1 ? 'lg:w-1/2' : 'w-full'} flex items-center justify-center p-8 bg-background`}>
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center space-y-4">
+            {step === 1 && (
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <img src={heyniaIcon} alt="HeyNia" className="w-8 h-8" />
+                <span className="text-2xl font-bold">HeyNia</span>
+              </div>
+            )}
+            <CardTitle className="text-2xl font-bold">
+              {step === 1 && 'Welcome to HeyNia'}
+              {step === 2 && 'Complete Your Profile'}
+              {step === 3 && 'Clinic Information'}
+            </CardTitle>
+            <p className="text-muted-foreground">
+              {step === 1 && 'Let\'s set up your profile to get you started with premium dental practice management'}
+              {step === 2 && 'Add a professional photo to personalize your experience'}
+              {step === 3 && 'Tell us about your dental practice'}
+            </p>
+            <Progress value={(step / 3) * 100} className="w-full" />
+          </CardHeader>
 
         <CardContent className="space-y-6">
           {step === 1 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-center">Personal Information</h3>
-              <div>
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input
-                  id="fullName"
-                  value={profile.full_name}
-                  onChange={(e) => setProfile(prev => ({ ...prev, full_name: e.target.value }))}
-                  placeholder="Enter your full name"
-                  className="mt-1"
-                />
-              </div>
-              <div>
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  value={profile.phone}
-                  onChange={(e) => setProfile(prev => ({ ...prev, phone: e.target.value }))}
-                  placeholder="Enter your phone number"
-                  className="mt-1"
-                />
-              </div>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="fullName">Full Name</Label>
+              <Input
+                id="fullName"
+                value={profile.full_name}
+                onChange={(e) => setProfile(prev => ({ ...prev, full_name: e.target.value }))}
+                placeholder="Enter your full name"
+                className="mt-1"
+              />
             </div>
+            <div>
+              <Label htmlFor="phone">Phone Number</Label>
+              <Input
+                id="phone"
+                value={profile.phone}
+                onChange={(e) => setProfile(prev => ({ ...prev, phone: e.target.value }))}
+                placeholder="Enter your phone number"
+                className="mt-1"
+              />
+            </div>
+          </div>
           )}
 
           {step === 2 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-center">Profile Picture</h3>
-              <div className="flex flex-col items-center space-y-4">
-                <Avatar className="w-32 h-32">
-                  <AvatarImage src={profile.avatar_url} />
-                  <AvatarFallback className="text-2xl">
-                    <User className="w-16 h-16" />
-                  </AvatarFallback>
-                </Avatar>
-                
-                <div className="flex gap-4">
-                  <label className="cursor-pointer">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      disabled={loading}
-                    />
-                    <Button variant="outline" className="flex items-center gap-2" disabled={loading}>
-                      <Upload className="w-4 h-4" />
-                      Upload Photo
-                    </Button>
-                  </label>
-                </div>
-                <p className="text-sm text-muted-foreground text-center">
-                  Upload a professional photo or we'll use your Google profile picture if available
-                </p>
+          <div className="space-y-4">
+            <div className="flex flex-col items-center space-y-4">
+              <Avatar className="w-32 h-32 border-4 border-primary/20">
+                <AvatarImage src={profile.avatar_url} />
+                <AvatarFallback className="text-2xl bg-primary/10">
+                  <User className="w-16 h-16 text-primary" />
+                </AvatarFallback>
+              </Avatar>
+              
+              <div className="flex gap-4">
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    disabled={loading}
+                  />
+                  <Button variant="glassy" className="flex items-center gap-2" disabled={loading}>
+                    <Upload className="w-4 h-4" />
+                    Upload Photo
+                  </Button>
+                </label>
               </div>
+              <p className="text-sm text-muted-foreground text-center">
+                Upload a professional photo or we'll use your Google profile picture if available
+              </p>
             </div>
+          </div>
           )}
 
           {step === 3 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-center">Clinic Information</h3>
-              <div>
-                <Label htmlFor="clinicName">Clinic Name</Label>
-                <Input
-                  id="clinicName"
-                  value={profile.clinic_name}
-                  onChange={(e) => setProfile(prev => ({ ...prev, clinic_name: e.target.value }))}
-                  placeholder="Enter your clinic name"
-                  className="mt-1"
-                />
-              </div>
-              <div className="bg-muted p-4 rounded-lg">
-                <h4 className="font-medium mb-2">What you'll get with HeyNia:</h4>
-                <ul className="text-sm space-y-1 text-muted-foreground">
-                  <li>• AI-powered patient management</li>
-                  <li>• Automated appointment scheduling</li>
-                  <li>• Performance analytics and insights</li>
-                  <li>• Secure patient data management</li>
-                  <li>• Treatment tracking and billing</li>
-                </ul>
-              </div>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="clinicName">Clinic Name</Label>
+              <Input
+                id="clinicName"
+                value={profile.clinic_name}
+                onChange={(e) => setProfile(prev => ({ ...prev, clinic_name: e.target.value }))}
+                placeholder="Enter your clinic name"
+                className="mt-1"
+              />
             </div>
+            <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg border border-primary/20">
+              <h4 className="font-semibold mb-3 text-primary">Premium Features Included:</h4>
+              <ul className="text-sm space-y-2 text-foreground">
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                  AI-powered patient management & insights
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                  Automated appointment scheduling & reminders  
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                  Advanced performance analytics & reporting
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                  Secure patient data management & HIPAA compliance
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                  Treatment tracking & integrated billing
+                </li>
+              </ul>
+            </div>
+          </div>
           )}
 
           <div className="flex justify-between pt-6">
-            <Button
-              variant="outline"
-              onClick={handleBack}
-              disabled={step === 1 || loading}
-            >
-              Back
-            </Button>
+            {step > 1 && (
+              <Button
+                variant="outline"
+                onClick={handleBack}
+                disabled={loading}
+              >
+                Back
+              </Button>
+            )}
             
             {step < 3 ? (
               <Button
+                variant="glassy"
                 onClick={handleNext}
-                className="bg-green-600 hover:bg-green-700"
-                disabled={loading}
+                disabled={loading || (step === 1 && (!profile.full_name || !profile.phone))}
+                className={step === 1 ? 'w-full' : 'ml-auto'}
               >
-                Next
+                Next Step
               </Button>
             ) : (
               <Button
+                variant="glassy"
                 onClick={handleComplete}
-                className="bg-green-600 hover:bg-green-700"
-                disabled={loading}
+                disabled={loading || !profile.clinic_name}
+                className="ml-auto"
               >
                 {loading ? 'Setting up...' : 'Complete Setup'}
               </Button>
@@ -271,6 +324,7 @@ const Onboarding = () => {
         </CardContent>
       </Card>
     </div>
+  </div>
   );
 };
 
