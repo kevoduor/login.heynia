@@ -9,59 +9,59 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Dark theme - Primary colors */
-    --background: 215 25% 6%;
-    --foreground: 215 20% 95%;
+    --background: 252 25% 6%;
+    --foreground: 252 20% 95%;
 
-    --card: 215 25% 8%;
-    --card-foreground: 215 20% 95%;
+    --card: 252 25% 8%;
+    --card-foreground: 252 20% 95%;
 
-    --popover: 215 25% 8%;
-    --popover-foreground: 215 20% 95%;
+    --popover: 252 25% 8%;
+    --popover-foreground: 252 20% 95%;
 
-    --primary: 180 100% 50%;
-    --primary-foreground: 215 25% 6%;
+    --primary: 270 95% 65%;
+    --primary-foreground: 252 25% 6%;
 
-    --secondary: 215 20% 15%;
-    --secondary-foreground: 215 20% 95%;
+    --secondary: 252 20% 15%;
+    --secondary-foreground: 252 20% 95%;
 
-    --muted: 215 20% 12%;
-    --muted-foreground: 215 10% 60%;
+    --muted: 252 20% 12%;
+    --muted-foreground: 252 10% 60%;
 
-    --accent: 180 100% 50%;
-    --accent-foreground: 215 25% 6%;
+    --accent: 270 95% 65%;
+    --accent-foreground: 252 25% 6%;
 
     --destructive: 0 75% 60%;
-    --destructive-foreground: 215 20% 95%;
+    --destructive-foreground: 252 20% 95%;
 
     --success: 140 70% 50%;
-    --success-foreground: 215 25% 6%;
+    --success-foreground: 252 25% 6%;
 
     --warning: 45 95% 60%;
-    --warning-foreground: 215 25% 6%;
+    --warning-foreground: 252 25% 6%;
 
-    --border: 215 20% 15%;
-    --input: 215 20% 15%;
-    --ring: 180 100% 50%;
+    --border: 252 20% 15%;
+    --input: 252 20% 15%;
+    --ring: 270 95% 65%;
 
     --radius: 0.5rem;
 
     /* Sidebar colors */
-    --sidebar-background: 215 30% 4%;
-    --sidebar-foreground: 215 15% 70%;
-    --sidebar-primary: 180 100% 50%;
-    --sidebar-primary-foreground: 215 25% 6%;
-    --sidebar-accent: 215 25% 8%;
-    --sidebar-accent-foreground: 215 20% 95%;
-    --sidebar-border: 215 20% 10%;
-    --sidebar-ring: 180 100% 50%;
+    --sidebar-background: 252 30% 4%;
+    --sidebar-foreground: 252 15% 70%;
+    --sidebar-primary: 270 95% 65%;
+    --sidebar-primary-foreground: 252 25% 6%;
+    --sidebar-accent: 252 25% 8%;
+    --sidebar-accent-foreground: 252 20% 95%;
+    --sidebar-border: 252 20% 10%;
+    --sidebar-ring: 270 95% 65%;
 
     /* Custom dashboard colors */
     --metric-positive: 140 70% 50%;
     --metric-negative: 0 75% 60%;
-    --chart-primary: 180 100% 50%;
+    --chart-primary: 270 95% 65%;
     --chart-secondary: 260 100% 70%;
-    --chart-tertiary: 45 95% 60%;
-    --chart-quaternary: 300 70% 60%;
+    --chart-tertiary: 280 85% 75%;
+    --chart-quaternary: 250 70% 60%;
 
     /* Health status colors */
     --health-critical: 0 75% 60%;
@@ -71,34 +71,34 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Keep same dark theme for both modes */
-    --background: 215 25% 6%;
-    --foreground: 215 20% 95%;
-    --card: 215 25% 8%;
-    --card-foreground: 215 20% 95%;
-    --popover: 215 25% 8%;
-    --popover-foreground: 215 20% 95%;
-    --primary: 180 100% 50%;
-    --primary-foreground: 215 25% 6%;
-    --secondary: 215 20% 15%;
-    --secondary-foreground: 215 20% 95%;
-    --muted: 215 20% 12%;
-    --muted-foreground: 215 10% 60%;
-    --accent: 180 100% 50%;
-    --accent-foreground: 215 25% 6%;
+    /* Keep same purple theme for both modes */
+    --background: 252 25% 6%;
+    --foreground: 252 20% 95%;
+    --card: 252 25% 8%;
+    --card-foreground: 252 20% 95%;
+    --popover: 252 25% 8%;
+    --popover-foreground: 252 20% 95%;
+    --primary: 270 95% 65%;
+    --primary-foreground: 252 25% 6%;
+    --secondary: 252 20% 15%;
+    --secondary-foreground: 252 20% 95%;
+    --muted: 252 20% 12%;
+    --muted-foreground: 252 10% 60%;
+    --accent: 270 95% 65%;
+    --accent-foreground: 252 25% 6%;
     --destructive: 0 75% 60%;
-    --destructive-foreground: 215 20% 95%;
-    --border: 215 20% 15%;
-    --input: 215 20% 15%;
-    --ring: 180 100% 50%;
-    --sidebar-background: 215 30% 4%;
-    --sidebar-foreground: 215 15% 70%;
-    --sidebar-primary: 180 100% 50%;
-    --sidebar-primary-foreground: 215 25% 6%;
-    --sidebar-accent: 215 25% 8%;
-    --sidebar-accent-foreground: 215 20% 95%;
-    --sidebar-border: 215 20% 10%;
-    --sidebar-ring: 180 100% 50%;
+    --destructive-foreground: 252 20% 95%;
+    --border: 252 20% 15%;
+    --input: 252 20% 15%;
+    --ring: 270 95% 65%;
+    --sidebar-background: 252 30% 4%;
+    --sidebar-foreground: 252 15% 70%;
+    --sidebar-primary: 270 95% 65%;
+    --sidebar-primary-foreground: 252 25% 6%;
+    --sidebar-accent: 252 25% 8%;
+    --sidebar-accent-foreground: 252 20% 95%;
+    --sidebar-border: 252 20% 10%;
+    --sidebar-ring: 270 95% 65%;
   }
 }
 
